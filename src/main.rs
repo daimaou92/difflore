@@ -20,6 +20,10 @@ fn get_lines(file1: String, file2: String) -> Result<(Vec<String>, Vec<String>)>
     Ok((c1, c2))
 }
 
+/*
+ * Longest Common Subsequence *****************************************
+*/
+
 fn lcs_dp(c1: Vec<String>, c2: Vec<String>) -> Result<Vec<Vec<u32>>> {
     let m: usize = c1.len();
     let n: usize = c2.len();
@@ -104,15 +108,20 @@ fn common_lines(
 
     Ok((indices1, indices2))
 }
+// *********************************************************************
 
 fn main() -> Result<()> {
     let tup = get_lines("./file1".to_string(), "./file2".to_string())?;
     let c1 = tup.0;
     let c2 = tup.1;
+
+    // LCS =====================================
     let dp = lcs_dp(c1.clone(), c2.clone())?;
     println!("dp: {:?}", dp);
     // println!("LCS: {}", dp[m][n]);
     let cls = common_lines(c1, c2, dp);
     println!("Common lines: {:?}", cls);
+    // ==========================================
+
     Ok(())
 }
