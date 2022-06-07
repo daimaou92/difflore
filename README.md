@@ -6,4 +6,4 @@
 3. Run the [Myers Diff algorithm](https://neil.fraser.name/writing/diff/myers.pdf)
 on them using `cargo run --bin myers`
 4. Every deleted line is printed begining with `- `
-5. Prefix for additions is `+ ` and for equal lines its `  `
+5. Prefix for additions is `+ ` and for identical lines its two blank spaces.
