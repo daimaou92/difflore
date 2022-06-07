@@ -20,7 +20,7 @@ fn get_lines(file1: String, file2: String) -> Result<(Vec<String>, Vec<String>)>
 }
 
 fn edit_g(s1: Vec<String>, s2: Vec<String>) -> Result<Vec<Vec<i8>>> {
-    println!("Preparing edit_graph");
+    // println!("Preparing edit_graph");
     let m = s2.len();
     let n = s1.len();
 
@@ -54,7 +54,7 @@ fn edit_g(s1: Vec<String>, s2: Vec<String>) -> Result<Vec<Vec<i8>>> {
         mat.push(row);
         i += 1;
     }
-    println!("returning mat: {:?}", mat);
+    // println!("returning mat: {:?}", mat);
     Ok(mat)
 }
 
@@ -104,51 +104,33 @@ fn edits(s1: Vec<String>, s2: Vec<String>) -> Result<Vec<PathElem>> {
             break;
         }
 
-        // Going right
-        // let mut pathr = Vec::<(u32, u32)>::new();
-        // let ir = i;
-        // let mut jr = j;
-        // if jr < n {
-        //     jr += 1;
-        //     // while eg[ir as usize][jr as usize] == -1 && jr < n && ir < m {
-        //     //     // pathr.push((ir, jr));
-        //     //     ir += 1;
-        //     //     jr += 1;
-        //     // }
-        // }
+        // Right
+        let mut ir = i;
+        let mut jr = j;
+        if jr < n {
+            jr += 1;
+            while eg[ir as usize][jr as usize] == -1 && ir < m && jr < n {
+                ir += 1;
+                jr += 1;
+            }
+        }
+        // Down
+        let mut id = i;
+        let mut jd = j;
+        if id < m {
+            id += 1;
+            while eg[id as usize][jd as usize] == -1 && id < m && jd < n {
+                id += 1;
+                jd += 1;
+            }
+        }
 
-        // Going Down
-        // let mut pathd = Vec::<(u32, u32)>::new();
-        // let mut id = i;
-        // let jd = j;
-        // if id < m {
-        //     id += 1;
-        // while eg[id as usize][jd as usize] == -1 && jd < n && id < m {
-        //     pathd.push((id, jd));
-        //     id += 1;
-        //     jd += 1;
-        // }
-        // }
-
-        // if id == i && jd == j && ir == i && jr == j {
-        //     // No movement
-        //     break;
-        // }
-
-        if ec_dist(i, j + 1, m, n) <= ec_dist(i + 1, j, m, n) {
+        if ec_dist(ir, jr, m, n) <= ec_dist(id, jd, m, n) {
             path.push(PathElem::new(i, j, PathOp::DEL));
-            // for (x, y) in pathr.iter() {
-            //     path.push(PathElem::new(*x, *y, PathOp::EQ));
-            // }
-            // i = ir;
             j += 1;
         } else {
             path.push(PathElem::new(i, j, PathOp::INS));
-            // for (x, y) in pathd.iter() {
-            //     path.push(PathElem::new(*x, *y, PathOp::EQ));
-            // }
             i += 1;
-            // j = jd;
         }
         q.push((i, j))
     }
@@ -157,7 +139,7 @@ fn edits(s1: Vec<String>, s2: Vec<String>) -> Result<Vec<PathElem>> {
 }
 
 fn main() -> Result<()> {
-    println!("Diffing now...");
+    // println!("Diffing now...");
     let tup = get_lines("./file1".to_string(), "./file2".to_string())?;
     let c1 = tup.0;
     let c2 = tup.1;

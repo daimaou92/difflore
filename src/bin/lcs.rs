@@ -1,6 +1,5 @@
 use std::fs::File;
 use std::io::{prelude::*, BufReader, Error, ErrorKind, Result};
-use std::mem;
 
 fn get_lines(file1: String, file2: String) -> Result<(Vec<String>, Vec<String>)> {
     let file = File::open(file1)?;
