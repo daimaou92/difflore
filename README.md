@@ -7,3 +7,6 @@
 on them using `cargo run --bin myers`
 4. Every deleted line is printed begining with `- `
 5. Prefix for additions is `+ ` and for identical lines its two blank spaces.
+
+### Thanks
+1. [Awesome explanation of Myer's Algo](https://blog.jcoglan.com/2017/02/12/the-myers-diff-algorithm-part-1/)
